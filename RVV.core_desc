@@ -124,60 +124,60 @@ InstructionSet RVZve32f extends RVZve32x {
 
     functions {
         // 13.2. Vector Single-Width Floating-Point Add/Subtract Instructions
-        extern unsigned<8> vfadd_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfadd_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfsub_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfsub_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<64> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfrsub_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
+        extern unsigned<8> vfadd_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfadd_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfsub_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfsub_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<64> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfrsub_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
 
         // 13.3. Vector Widening Floating-Point Add/Subtract Instructions
-        extern unsigned<8> vfwadd_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfwadd_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfwsub_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfwsub_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfwadd_wv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfwadd_wf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfwsub_wv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfwsub_wf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
+        extern unsigned<8> vfwadd_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwadd_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfwsub_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwsub_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfwadd_wv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwadd_wf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfwsub_wv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwsub_wf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
 
         // 13.4. Vector Single-Width Floating-Point Multiply/Divide Instructions
-        extern unsigned<8> vfmul_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfmul_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfdiv_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfdiv_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfrdiv_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
+        extern unsigned<8> vfmul_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfmul_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfdiv_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfdiv_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfrdiv_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
 
         // 13.5. Vector Widening Floating-Point Multiply
-        extern unsigned<8> vfwmul_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfwmul_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
+        extern unsigned<8> vfwmul_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwmul_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
 
         // 13.6. Vector Single-Width Floating-Point Fused Multiply-Add Instructions
-        extern unsigned<8> vfmacc_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfmacc_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfnmacc_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfnmacc_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfmsac_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfmsac_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfnmsac_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfnmsac_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfmadd_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfmadd_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfnmadd_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfnmadd_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfmsub_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfmsub_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfnmsub_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfnmsub_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
+        extern unsigned<8> vfmacc_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfmacc_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfnmacc_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfnmacc_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfmsac_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfmsac_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfnmsac_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfnmsac_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfmadd_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfmadd_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfnmadd_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfnmadd_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfmsub_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfmsub_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfnmsub_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfnmsub_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
 
         // 13.7. Vector Widening Floating-Point Fused Multiply-Add Instructions
-        extern unsigned<8> vfwmacc_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfwmacc_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfwnmacc_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfwnmacc_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfwmsac_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfwmsac_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
-        extern unsigned<8> vfwnmsac_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL);
-        extern unsigned<8> vfwnmsac_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
+        extern unsigned<8> vfwmacc_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwmacc_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfwnmacc_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwnmacc_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfwmsac_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwmsac_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
+        extern unsigned<8> vfwnmsac_vv(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwnmsac_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN, unsigned<8> pRm);
 
         // 13.8. Vector Floating-Point Square-Root Instruction
 
@@ -227,8 +227,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfadd_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfadd_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -249,8 +250,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfadd_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfadd_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -271,8 +273,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfsub_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfsub_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -293,8 +296,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfsub_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfsub_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -315,8 +319,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfrsub_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfrsub_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -339,8 +344,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwadd_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfwadd_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -361,8 +367,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwadd_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfwadd_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -383,8 +390,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwsub_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfwsub_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -405,8 +413,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwsub_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfwsub_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -427,8 +436,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwadd_wv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfwadd_wv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -449,8 +459,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwadd_wf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfwadd_wf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -471,8 +482,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwsub_wv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfwsub_wv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -493,8 +505,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwsub_wf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfwsub_wf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -517,8 +530,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfmul_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfmul_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -539,8 +553,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfmul_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfmul_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -561,8 +576,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfdiv_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfdiv_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -583,8 +599,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfdiv_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfdiv_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -605,8 +622,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfrdiv_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfrdiv_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -629,8 +647,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwmul_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfwmul_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -651,8 +670,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwmul_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfwmul_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -675,8 +695,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfmacc_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfmacc_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -697,8 +718,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfmacc_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfmacc_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -719,8 +741,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfnmacc_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfnmacc_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -741,8 +764,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfnmacc_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfnmacc_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -763,8 +787,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfmsac_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfmsac_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -785,8 +810,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfmsac_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfmsac_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -807,8 +833,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfnmsac_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfnmsac_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -829,8 +856,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfnmsac_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfnmsac_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -851,8 +879,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfmadd_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfmadd_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -873,8 +902,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfmadd_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfmadd_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -895,8 +925,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfnmadd_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfnmadd_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -917,8 +948,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfnmadd_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfnmadd_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -939,8 +971,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfmsub_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfmsub_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -961,8 +994,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfmsub_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfmsub_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -983,8 +1017,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfnmsub_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfnmsub_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -1005,8 +1040,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfnmsub_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfnmsub_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -1029,8 +1065,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwmacc_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfwmacc_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -1051,8 +1088,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwmacc_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfwmacc_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -1073,8 +1111,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwnmacc_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfwnmacc_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -1095,8 +1134,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwnmacc_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfwnmacc_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -1117,8 +1157,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwmsac_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfwmsac_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -1139,8 +1180,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwmsac_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfwmsac_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -1161,8 +1203,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwnmsac_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl);
+                unsigned<XLEN> ret = vfwnmsac_vv(V, _vtype, vm, vd, vs1, vs2, _vstart, _vlen, _vl, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -1183,8 +1226,9 @@ InstructionSet RVZve32f extends RVZve32x {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
                 unsigned<XLEN> _vl = CSR[VL_ADDR];
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
 
-                unsigned<XLEN> ret = vfwnmsac_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                unsigned<XLEN> ret = vfwnmsac_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN, _rounding_mode);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
@@ -1198,7 +1242,28 @@ InstructionSet RVZve32f extends RVZve32x {
         // End 13.7. 
 
         // 13.8. Vector Floating-Point Square-Root Instruction
+        VFSQRT_V {
+            encoding: 6'b111111 :: vm[0:0] :: vs2[4:0] :: 5'b00000 :: 3'b001 :: vd[4:0] :: 7'b1010111;
+            assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
 
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
+
+                unsigned<XLEN> ret = vfsqrt_v(V, _vtype, vm, vd, vs2, _vstart, _vlen, _vl, _rounding_mode);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+                unsigned<32> flags = fget_flags();
+                FCSR = (FCSR & ~FFLAG_MASK) | (flags & FFLAG_MASK);
+            }
+        }
         // End 13.8. 
 
         // 13.9. Vector Floating-Point Reciprocal Square-Root Estimate Instruction
