@@ -224,10 +224,31 @@ InstructionSet RVZve32f extends RVZve32x {
         extern unsigned<8> vfmv_v_f(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVd, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pXLEN);
 
         // 13.17. Single-Width Floating-Point/Integer Type-Convert Instructions
+        extern unsigned<8> vfcvt_xu_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfcvt_x_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfcvt_rtz_xu_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfcvt_rtz_x_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfcvt_f_xu_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfcvt_f_x_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
 
         // 13.18. Widening Floating-Point/Integer Type-Convert Instructions
+        extern unsigned<8> vfwcvt_xu_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwcvt_x_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwcvt_rtz_xu_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwcvt_rtz_x_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwcvt_f_xu_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwcvt_f_x_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfwcvt_f_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
 
         // 13.19. Narrowing Floating-Point/Integer Type-Convert Instructions
+        extern unsigned<8> vfncvt_xu_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfncvt_x_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfncvt_rtz_xu_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfncvt_rtz_x_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfncvt_f_xu_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfncvt_f_x_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfncvt_f_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        extern unsigned<8> vfncvt_rod_f_f_v(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
 
     }
 
@@ -1882,7 +1903,143 @@ InstructionSet RVZve32f extends RVZve32x {
         // End 13.16.
 
         // 13.17. Single-Width Floating-Point/Integer Type-Convert Instructions
+        VFCVT_XU_F_V {
+            encoding: 6'b010010 :: vm[0:0] :: vs2[4:0] :: 5'b00000 :: 3'b001 :: vd[4:0] :: 7'b1010111;
+            assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
 
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
+
+                unsigned<XLEN> ret = vfcvt_xu_f_v(V, _vtype, vm, vd, vs2, _vstart, _vlen, _vl, _rounding_mode);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+                unsigned<32> flags = fget_flags();
+                FCSR = (FCSR & ~FFLAG_MASK) | (flags & FFLAG_MASK);
+            }
+        }
+
+        VFCVT_X_F_V {
+            encoding: 6'b010010 :: vm[0:0] :: vs2[4:0] :: 5'b00001 :: 3'b001 :: vd[4:0] :: 7'b1010111;
+            assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
+
+                unsigned<XLEN> ret = vfcvt_x_f_v(V, _vtype, vm, vd, vs2, _vstart, _vlen, _vl, _rounding_mode);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+                unsigned<32> flags = fget_flags();
+                FCSR = (FCSR & ~FFLAG_MASK) | (flags & FFLAG_MASK);
+            }
+        }
+
+        VFCVT_RTZ_XU_F_V {
+            encoding: 6'b010010 :: vm[0:0] :: vs2[4:0] :: 5'b00110 :: 3'b001 :: vd[4:0] :: 7'b1010111;
+            assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
+
+                unsigned<XLEN> ret = vfcvt_rtz_xu_f_v(V, _vtype, vm, vd, vs2, _vstart, _vlen, _vl, _rounding_mode);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+                unsigned<32> flags = fget_flags();
+                FCSR = (FCSR & ~FFLAG_MASK) | (flags & FFLAG_MASK);
+            }
+        }
+
+        VFCVT_RTZ_X_F_V {
+            encoding: 6'b010010 :: vm[0:0] :: vs2[4:0] :: 5'b00111 :: 3'b001 :: vd[4:0] :: 7'b1010111;
+            assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
+
+                unsigned<XLEN> ret = vfcvt_rtz_x_f_v(V, _vtype, vm, vd, vs2, _vstart, _vlen, _vl, _rounding_mode);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+                unsigned<32> flags = fget_flags();
+                FCSR = (FCSR & ~FFLAG_MASK) | (flags & FFLAG_MASK);
+            }
+        }
+
+        VFCVT_F_XU_V {
+            encoding: 6'b010010 :: vm[0:0] :: vs2[4:0] :: 5'b00010 :: 3'b001 :: vd[4:0] :: 7'b1010111;
+            assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
+
+                unsigned<XLEN> ret = vfcvt_f_xu_v(V, _vtype, vm, vd, vs2, _vstart, _vlen, _vl, _rounding_mode);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+                unsigned<32> flags = fget_flags();
+                FCSR = (FCSR & ~FFLAG_MASK) | (flags & FFLAG_MASK);
+            }
+        }
+
+        VFCVT_F_X_V {
+            encoding: 6'b010010 :: vm[0:0] :: vs2[4:0] :: 5'b00011 :: 3'b001 :: vd[4:0] :: 7'b1010111;
+            assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+                unsigned<XLEN> _rounding_mode = CSR[RV_CSR_FRM];
+
+                unsigned<XLEN> ret = vfcvt_f_x_v(V, _vtype, vm, vd, vs2, _vstart, _vlen, _vl, _rounding_mode);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+                unsigned<32> flags = fget_flags();
+                FCSR = (FCSR & ~FFLAG_MASK) | (flags & FFLAG_MASK);
+            }
+        }
         // End 13.17.
 
         // 13.18. Widening Floating-Point/Integer Type-Convert Instructions
