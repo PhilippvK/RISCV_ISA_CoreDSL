@@ -112,7 +112,7 @@ InstructionSet RVZve64f extends RVZve32f, RVZve64x {
         // -- 2 Sort
 }
 
-InstructionSet RVZve32f extends RVZve32x {
+InstructionSet RVZve32f extends RVZve32x, RV32F {
 // + single precision
     // functions {
     //     bool validate_rvv() {
@@ -261,6 +261,14 @@ InstructionSet RVZve32f extends RVZve32x {
         // 14.4. Vector Widening Floating-Point Reduction Instructions
         extern unsigned<8> vfwredosum_vs(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
         extern unsigned<8> vfwredusum_vs(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs1, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pRm);
+        
+        // 16.2. Floating-Point Scalar Move Instructions
+        extern unsigned<8> vfmv_f_s(char* pV, char* pF, unsigned<16> pVTYPE, unsigned<8> pRd, unsigned<8> pVs2, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pFLEN);
+        extern unsigned<8> vfmv_s_f(char* pV, char* pF, unsigned<16> pVTYPE, unsigned<8> pVd, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pFLEN);
+
+        // 16.3. Vector Slide Instructions
+        extern unsigned<8> vfslide1up_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pFLEN);
+        extern unsigned<8> vfslide1down_vf(char* pV, char* pR, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pVd, unsigned<8> pVs2, unsigned<8> pRs1, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<8> pFLEN);
     }
 
     instructions {
@@ -1326,7 +1334,7 @@ InstructionSet RVZve32f extends RVZve32x {
 
         // 13.9. Vector Floating-Point Reciprocal Square-Root Estimate Instruction
         VFRSQRT7_V {
-            encoding: 6'b111111 :: vm[0:0] :: vs2[4:0] :: 5'b00100 :: 3'b001 :: vd[4:0] :: 7'b1010111;
+            encoding: 6'b010011 :: vm[0:0] :: vs2[4:0] :: 5'b00100 :: 3'b001 :: vd[4:0] :: 7'b1010111;
             assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
             behavior: {
 
@@ -1351,7 +1359,7 @@ InstructionSet RVZve32f extends RVZve32x {
 
         // 13.10. Vector Floating-Point Reciprocal Estimate Instruction
         VFREC7_V {
-            encoding: 6'b111111 :: vm[0:0] :: vs2[4:0] :: 5'b00101 :: 3'b001 :: vd[4:0] :: 7'b1010111;
+            encoding: 6'b010011 :: vm[0:0] :: vs2[4:0] :: 5'b00101 :: 3'b001 :: vd[4:0] :: 7'b1010111;
             assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
             behavior: {
 
@@ -2546,6 +2554,90 @@ InstructionSet RVZve32f extends RVZve32x {
         }
         // End 14.4.
         // End 14.
+
+        // 16. Vector Permutation Instructions
+        // 16.2. Floating-Point Scalar Move Instructions
+        VFMV_F_S {
+            encoding: 6'b010000 :: 1'b1 :: vs2[4:0] :: 5'b00000 :: 3'b001 :: rd[4:0] :: 7'b1010111;
+            assembly:"{name(rd)}, {name(vs2)}";
+            behavior: {
+
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+
+                unsigned<XLEN> ret = vfmv_f_s(V, F, _vtype, rd, vs2, _vstart, _vlen, _vl, FLEN);
+                if(ret != 0){
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else{
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VFMV_S_F {
+            encoding: 6'b010000 :: 1'b1 :: 5'b00000 :: rs1[4:0] :: 3'b101 :: vd[4:0] :: 7'b1010111;
+            assembly:"{name(vd)}, {name(rs1)}";
+            behavior: {
+
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+
+                unsigned<XLEN> ret = vfmv_s_f(V, F, _vtype, vd, rs1, _vstart, _vlen, _vl, FLEN);
+                if(ret != 0){
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else{
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        // 16.3. Vector Slide Instructions
+        VFSLIDE1UP_VX {
+            encoding: 6'b001110 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b101 :: vd[4:0] :: 7'b1010111;
+            assembly:"{name(vd)}, {name(vs2)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+
+                unsigned<XLEN> ret = vfslide1up_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                if(ret != 0){
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else{
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VFSLIDE1DOWN_VF {
+            encoding: 6'b001111 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b101 :: vd[4:0] :: 7'b1010111;
+            assembly:"{name(vd)}, {name(vs2)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR]*8;
+
+                unsigned<XLEN> ret = vfslide1down_vf(V, F, _vtype, vm, vd, vs2, rs1, _vstart, _vlen, _vl, FLEN);
+                if(ret != 0){
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else{
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+        // End 16.3.
     }
 }
 
@@ -3240,24 +3332,24 @@ InstructionSet RVZve32x extends RVVBase {
 
                 unsigned<32> vlen = CSR[VLENB_ADDR]*8;
 
-                if (lmul & 4){
+                if (lmul & 4) {
                     _illmask = (1 << (XLEN-1));
-                    if(lmul == 6){
+                    if(lmul == 6) {
                         _vlmax = vlen / (0x8 << sew) / 4;
-                    }else if(lmul == 7){
+                    } else if(lmul == 7) {
                         _vlmax = vlen / (0x8 << sew) / 2;
-                    }else{
+                    } else {
                         _vlmax = vlen / (0x8 << sew) / 8;
                     }
-                }else {
+                } else {
                     _illmask = (0 << (XLEN-1));
                     if(lmul == 0){
                         _vlmax = vlen / (0x8 << sew);
-                    }else if(lmul == 1){
+                    } else if(lmul == 1) {
                         _vlmax = vlen / (0x8 << sew) *2;
-                    }else if(lmul == 2){
+                    } else if(lmul == 2) {
                         _vlmax = vlen / (0x8 << sew) *4;
-                    }else if(lmul == 3){
+                    } else if(lmul == 3) {
                         _vlmax = vlen / (0x8 << sew) *8;
                     }
                 }
@@ -3290,11 +3382,64 @@ InstructionSet RVZve32x extends RVVBase {
         }
 
         VSETIVLI {
-            encoding: 1'b1 :: 1'b1 :: zimm[9:0] :: uimm[4:0] :: 3'b111 :: rd[4:0] :: 7'b1010111;
-            assembly:"{name(rd)}, {name(rs1)}, {zimm}";
+            encoding: 1'b1 :: 1'b1 :: vtypei[9:0] :: uimm[4:0] :: 3'b111 :: rd[4:0] :: 7'b1010111;
+            assembly:"{name(rd)}, {uimm}, {vtypei}";
             behavior: {
                 // TODO: Missing
+                unsigned<3> sew[3]  = vtype_extractSEW(vtypei);
+                unsigned<3> lmul[3] = vtype_extractLMUL(vtypei);
+                unsigned<1> vta[1]  = vtype_extractTA(vtypei);
+                unsigned<1> vma[1]  = vtype_extractMA(vtypei);
+
                 unsigned<32> _vlmax = 0;
+                unsigned<32> _vtype_result = vtypei;
+                unsigned<32> vlen = CSR[VLENB_ADDR] * 8;
+
+                if (sew == 0b011 && XLEN == 32) {
+                    _vtype_result = (1 << (XLEN - 1)); 
+                }
+
+                if (lmul & 4) {
+                    if(lmul == 6) {
+                        _vlmax = vlen / (0x8 << sew) / 4;
+                    } else if(lmul == 7) {
+                        _vlmax = vlen / (0x8 << sew) / 2;
+                    } else {
+                        // For XLEN=32: unsupported!
+                        if (XLEN == 32) {
+                            _vtype_result = (1 << (XLEN - 1)); 
+                        } else {
+                            _vlmax = vlen / (0x8 << sew) / 8;
+                        }
+                    }
+                } else {
+                    if(lmul == 0){
+                        _vlmax = vlen / (0x8 << sew);
+                    } else if(lmul == 1) {
+                        _vlmax = vlen / (0x8 << sew) * 2;
+                    } else if(lmul == 2) {
+                        _vlmax = vlen / (0x8 << sew) * 4;
+                    } else if(lmul == 3) {
+                        _vlmax = vlen / (0x8 << sew) * 8;
+                    }
+                }
+
+                unsigned<32> _avl = uimm;
+                unsigned<32> _vl = 0;
+                if(_avl <= _vlmax) {
+                   _vl = _avl;
+                } else if(_avl >= (2*_vlmax)) {
+                   _vl = _vlmax;
+                } else {
+                  // TODO: check
+                  // _vl = (_avl % 0x2) ?  _avl/2 + 1 : _avl / 2; // ceil (AVL/2)
+                  _vl = _vlmax;
+                }
+
+                CSR[VL_ADDR] = _vl;
+                CSR[VTYPE_ADDR] = _vtype_result;
+                if(rd != 0) X[rd] = _vl;
+                CSR[VSTART_ADDR] = 0;
             }
         }
 
@@ -9099,10 +9244,6 @@ InstructionSet RVZve32x extends RVVBase {
         // End 15.
         
         // 16. Vector Permutation Instructions
-        // vmcompress.vm?
-        // vfmv.f.s?
-        // vfmv.s.f?
-        // vmv.x.s?
         // 16.1. Integer Scalar Move Instructions
         VMV_X_S {
             encoding: 6'b010000 :: 1'b1 :: vs2[4:0] :: 5'b00000 :: 3'b010 :: rd[4:0] :: 7'b1010111;
@@ -9187,8 +9328,6 @@ InstructionSet RVZve32x extends RVVBase {
                 }
             }
         }
-
-        // TODO: vfslide1up
 
         VSLIDEDOWN_VI {
             encoding: 6'b001111 :: vm[0:0] :: vs2[4:0] :: simm5[4:0] :: 3'b011 :: vd[4:0] :: 7'b1010111;
