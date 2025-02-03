@@ -3012,6 +3012,9 @@ InstructionSet RVZve32x extends RVVBase {
 
         extern unsigned<8> etiss_vload_segment_stride(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<16> pEEW, unsigned<8> pVd, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<64> pMSTART, unsigned<16> pStride) [[etiss_needs_arch]];
         extern unsigned<8> etiss_vstore_segment_stride(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<16> pEEW, unsigned<8> pVs3, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<64> pMSTART, unsigned<16> pStride) [[etiss_needs_arch]];
+
+        extern unsigned<8> etiss_vload_segment_index(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<16> pEEW, unsigned<8> pNF, unsigned<8> pVd, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<64> pMSTART, unsigned<8> pVs2) [[etiss_needs_arch]];
+        extern unsigned<8> etiss_vstore_segment_index(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<16> pEEW, unsigned<8> pNF, unsigned<8> pVs3, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<64> pMSTART, unsigned<8> pVs2) [[etiss_needs_arch]];
         
         // TODO: Divide into sections
         // Zve32x:
@@ -3541,6 +3544,7 @@ InstructionSet RVZve32x extends RVVBase {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
             }
         }
+        /*
         VSOXSEG2EI8_V {
             encoding: 3'b001 :: 1'b0 :: 2'b11 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b000 :: vs3[4:0] :: 7'b0100111;
             assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
@@ -4129,6 +4133,7 @@ InstructionSet RVZve32x extends RVVBase {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
             }
         }
+        */
         // VSOXEI8_V {
         //     encoding: 3'b000 :: 1'b0 :: 2'b11 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b000 :: vs3[4:0] :: 7'b0100111;
         //     assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
@@ -5013,6 +5018,247 @@ InstructionSet RVZve32x extends RVVBase {
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
 
                 unsigned<XLEN> ret = etiss_vstore_segment_stride(V, _vtype, vm, _eew, nf + 1, vs3, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], (unsigned<16>)X[rs2]);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        // 7.8.3. Vector Indexed Segment Loads and Stores
+        VLUXSEGEI8_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b01 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b000 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b000);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_segment_index(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLUXSEGEI16_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b01 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b101 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b101);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_segment_index(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLUXSEGEI32_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b01 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b110 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b110);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_segment_index(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLOXSEGEI8_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b11 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b000 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b000);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_segment_index(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLOXSEGEI16_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b11 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b101 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b101);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_segment_index(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLOXSEGEI32_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b11 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b110 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b110);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_segment_index(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VSUXSEGEI8_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b01 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b000 :: vs3[4:0] :: 7'b0100111;
+            assembly: "{name(vs3)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b000);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vstore_segment_index(V, _vtype, vm, _eew, nf + 1, vs3, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VSUXSEGEI16_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b01 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b101 :: vs3[4:0] :: 7'b0100111;
+            assembly: "{name(vs3)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b101);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vstore_segment_index(V, _vtype, vm, _eew, nf + 1, vs3, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VSUXSEGEI32_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b01 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b110 :: vs3[4:0] :: 7'b0100111;
+            assembly: "{name(vs3)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b110);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vstore_segment_index(V, _vtype, vm, _eew, nf + 1, vs3, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VSOXSEGEI8_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b11 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b000 :: vs3[4:0] :: 7'b0100111;
+            assembly: "{name(vs3)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b000);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vstore_segment_index(V, _vtype, vm, _eew, nf + 1, vs3, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VSOXSEGEI16_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b11 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b101 :: vs3[4:0] :: 7'b0100111;
+            assembly: "{name(vs3)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b101);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vstore_segment_index(V, _vtype, vm, _eew, nf + 1, vs3, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VSOXSEGEI32_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b11 :: vm[0:0] :: vs2[4:0] :: rs1[4:0] :: 3'b110 :: vs3[4:0] :: 7'b0100111;
+            assembly: "{name(vs3)}, {name(rs1)}, name{{vs2}}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b110);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vstore_segment_index(V, _vtype, vm, _eew, nf + 1, vs3, _vstart, _vlen, _vl, (unsigned<64>)X[rs1], vs2);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
