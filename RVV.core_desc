@@ -3015,6 +3015,9 @@ InstructionSet RVZve32x extends RVVBase {
 
         extern unsigned<8> etiss_vload_segment_index(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<16> pEEW, unsigned<8> pNF, unsigned<8> pVd, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<64> pMSTART, unsigned<8> pVs2) [[etiss_needs_arch]];
         extern unsigned<8> etiss_vstore_segment_index(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<16> pEEW, unsigned<8> pNF, unsigned<8> pVs3, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<16> pVL, unsigned<64> pMSTART, unsigned<8> pVs2) [[etiss_needs_arch]];
+
+        extern unsigned<8> etiss_vstore_registers(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<8> pNF, unsigned<8> pVs3, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<64> pMSTART) [[etiss_needs_arch]];
+        extern unsigned<8> etiss_vload_registers(char* pV, unsigned<16> pVTYPE, unsigned<8> pVm, unsigned<16> pEEW, unsigned<8> pNF, unsigned<8> pVd, unsigned<16> pVSTART, unsigned<16> pVLEN, unsigned<64> pMSTART) [[etiss_needs_arch]];
         
         // TODO: Divide into sections
         // Zve32x:
@@ -4218,6 +4221,7 @@ InstructionSet RVZve32x extends RVVBase {
         //         unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
         //     }
         // }
+        /*
         VL1RE8_V {
             encoding: 3'b000 :: 1'b0 :: 2'b00 :: 1'b1 :: 5'b01000 :: rs1[4:0] :: 3'b000 :: vd[4:0] :: 7'b0000111;
             assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
@@ -4302,6 +4306,7 @@ InstructionSet RVZve32x extends RVVBase {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
             }
         }
+        */
         // This conflicts with the FLW/FSW encoding of the RV32F instruction set
         // VLE_U {
         //     encoding: 3'b000 :: mew[0:0] :: 2'b00 :: vm[0:0] :: 5'b00000 :: rs1[4:0] :: width[2:0] :: vd[4:0] :: 7'b0000111;
@@ -5268,6 +5273,83 @@ InstructionSet RVZve32x extends RVVBase {
             }
         }
 
+        // 7.9. Vector Load/Store Whole Register Instructions
+
+        VLRE8_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b01000 :: rs1[4:0] :: 3'b000 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b000);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_registers(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, (unsigned<64>)X[rs1]);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLRE16_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b01000 :: rs1[4:0] :: 3'b101 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b101);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_registers(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, (unsigned<64>)X[rs1]);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLRE32_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b01000 :: rs1[4:0] :: 3'b110 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b110);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_registers(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, (unsigned<64>)X[rs1]);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VSR_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b01000 :: rs1[4:0] :: 3'b000 :: vs3[4:0] :: 7'b0100111;
+            assembly: "{name(vs3)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vstore_registers(V, _vtype, vm, nf + 1, vs3, _vstart, _vlen, (unsigned<64>)X[rs1]);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
         // This conflicts with the FLW/FSW encoding of the RV32F instruction set
         // VSE_U {
         //     encoding: 3'b000 :: mew[0:0] :: 2'b00 :: vm[0:0] :: 5'b00000 :: rs1[4:0] :: width[2:0] :: vs3[4:0] :: 7'b0100111;
@@ -5420,13 +5502,13 @@ InstructionSet RVZve32x extends RVVBase {
                 unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
             }
         }
-        VSR_V {
-            encoding: nf[2:0] :: 1'b0 :: 2'b00 :: 1'b1 :: 5'b01000 :: rs1[4:0] :: 3'b000 :: vs3[4:0] :: 7'b0100111;
-            assembly:"{name(vs3)}, ({name(rs1)})";
-            behavior: {
-                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
-            }
-        }
+        // VSR_V {
+        //     encoding: nf[2:0] :: 1'b0 :: 2'b00 :: 1'b1 :: 5'b01000 :: rs1[4:0] :: 3'b000 :: vs3[4:0] :: 7'b0100111;
+        //     assembly:"{name(vs3)}, ({name(rs1)})";
+        //     behavior: {
+        //         unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+        //     }
+        // }
 
         // 11. Vector Integer Arithmetic Instructions
         // 11.1. Vector Single-Width Integer Add and Subtract
