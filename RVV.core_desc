@@ -3672,30 +3672,6 @@ InstructionSet RVZve32x extends RVVBase {
             }
         }
 
-        VLE8FF_V {
-            encoding: 3'b000 :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b10000 :: rs1[4:0] :: 3'b000 :: vd[4:0] :: 7'b0000111;
-            assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
-            behavior: {
-                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
-            }
-        }
-
-        VLE16FF_V {
-            encoding: 3'b000 :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b10000 :: rs1[4:0] :: 3'b101 :: vd[4:0] :: 7'b0000111;
-            assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
-            behavior: {
-                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
-            }
-        }
-
-        VLE32FF_V {
-            encoding: 3'b000 :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b10000 :: rs1[4:0] :: 3'b110 :: vd[4:0] :: 7'b0000111;
-            assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
-            behavior: {
-                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
-            }
-        }
-
         VLM_V {
             encoding: 3'b000 :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b01011 :: rs1[4:0] :: 3'b000 :: vd[4:0] :: 7'b0000111;
             assembly:"{name(vd)}, {name(rs1)}, {name(vm)}";
@@ -3955,6 +3931,67 @@ InstructionSet RVZve32x extends RVVBase {
             }
         }
 
+        // 7.7. Unit-stride Fault-Only-First Loads
+        VLE8FF_V {
+            encoding: 3'b000 :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b10000 :: rs1[4:0] :: 3'b000 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b000);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_encoded_unitstride(V, _vtype, vm, _eew, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1]);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLE16FF_V {
+            encoding: 3'b000 :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b10000 :: rs1[4:0] :: 3'b101 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b101);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_encoded_unitstride(V, _vtype, vm, _eew, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1]);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLE32FF_V {
+            encoding: 3'b000 :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b10000 :: rs1[4:0] :: 3'b110 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b110);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_encoded_unitstride(V, _vtype, vm, _eew, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1]);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
         // 7.8.1. Vector Unit-Stride Segment Loads and Stores
         VLSEGE8_V {
             encoding: nf[2:0] :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b00000 :: rs1[4:0] :: 3'b000 :: vd[4:0] :: 7'b0000111;
@@ -4067,6 +4104,66 @@ InstructionSet RVZve32x extends RVVBase {
                 unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
                 
                 unsigned<XLEN> ret = etiss_vstore_segment_unitstride(V, _vtype, vm, _eew, nf + 1, vs3, _vstart, _vlen, _vl, (unsigned<64>)X[rs1]);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLSEGE8FF_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b10000 :: rs1[4:0] :: 3'b000 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b000);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_segment_unitstride(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1]);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLSEGE16FF_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b10000 :: rs1[4:0] :: 3'b101 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b101);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_segment_unitstride(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1]);
+                if(ret != 0) {
+                    CSR[VSTART_ADDR] = ret >> 8;
+                    raise(0, 2);
+                } else {
+                    CSR[VSTART_ADDR] = 0;
+                }
+            }
+        }
+
+        VLSEGE32FF_V {
+            encoding: nf[2:0] :: 1'b0 :: 2'b00 :: vm[0:0] :: 5'b10000 :: rs1[4:0] :: 3'b110 :: vd[4:0] :: 7'b0000111;
+            assembly: "{name(vd)}, {name(rs1)}, {name(vm)}";
+            behavior: {
+                unsigned<XLEN> _vtype = CSR[VTYPE_ADDR];
+                unsigned<XLEN> _eew = vcfg_concatEEW(1'b0, 3'b110);
+                unsigned<XLEN> _vstart = CSR[VSTART_ADDR];
+                unsigned<XLEN> _vl = CSR[VL_ADDR];
+                unsigned<XLEN> _vlen = CSR[VLENB_ADDR] * 8;
+
+                unsigned<XLEN> ret = etiss_vload_segment_unitstride(V, _vtype, vm, _eew, nf + 1, vd, _vstart, _vlen, _vl, (unsigned<64>)X[rs1]);
                 if(ret != 0) {
                     CSR[VSTART_ADDR] = ret >> 8;
                     raise(0, 2);
